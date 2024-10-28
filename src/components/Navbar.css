@@ -1,23 +1,113 @@
+/* 重置浏览器默认样式，确保一致性 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 顶部导航栏基础样式 */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #222;
-    color: white;
-    padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  color: white;
+  padding: 15px;
+  position: relative;
+  z-index: 10;
+}
+
+/* 品牌部分 */
+.navbar-brand a.navbar-title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  outline: none;
+}
+
+/* 添加键盘焦点样式 */
+.navbar-title:focus {
+  outline: 2px dashed #ffcc00;
+}
+
+/* 桌面端导航链接 */
+.navbar-links {
+  list-style: none;
+  display: flex;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover,
+.navbar-link:focus {
+  color: #ffcc00;
+}
+
+.navbar-toggle {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  outline: none;
+}
+
+/* 添加键盘焦点样式 */
+.navbar-toggle:focus {
+  outline: 2px dashed #ffcc00;
+}
+
+/* 移动端菜单样式 */
+.navbar-mobile-menu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  list-style: none;
+  padding: 20px 0;
+  text-align: center;
+  z-index: 5;
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.navbar-mobile-menu li {
+  margin: 10px 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 媒体查询：适配小屏设备 */
+@media (max-width: 768px) {
   .navbar-links {
-    list-style: none;
-    display: flex;
+    display: none;
   }
-  
-  .navbar-links li {
-    margin: 0 10px;
+
+  .navbar-toggle {
+    display: block;
   }
-  
-  .navbar-links a {
-    color: white;
-    text-decoration: none;
+}
+
+/* 添加对大型屏幕的支持 */
+@media (min-width: 1024px) {
+  .navbar-link {
+    padding: 15px 20px;
   }
-  
+}
