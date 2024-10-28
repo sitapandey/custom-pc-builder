@@ -1,0 +1,33 @@
+.banner {
+    background: url('../assets/banner-image.jpg') no-repeat center center;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .banner-content {
+    text-align: center;
+    color: white;
+  }
+  
+  .banner-button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  @keyframes button-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  .button-animated {
+    animation: button-pop 3s ease-in-out infinite;
+  }
+  
+  
+  
