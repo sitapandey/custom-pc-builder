@@ -1,263 +1,245 @@
-import React, { useState, useEffect } from 'react';
-import Header from './Header';
+import React, { useState } from 'react';
 import ComponentSelection from './ComponentSelection';
 import Summary from './Summary';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMicrochip, faMemory, faHdd, faFan, faThermometerThreeQuarters, faLaptopHouse, faServer, faBolt } from '@fortawesome/free-solid-svg-icons';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import './CustomBuildPage.css';
 
 // 示例组件选项数据
-const cpuOptions = [
-  { name: 'Intel i5', price: 200, description: '适合日常办公和中等强度的游戏' },
-  { name: 'Intel i7', price: 300, description: '适合高端游戏和多任务处理' },
-  { name: 'AMD Ryzen 5', price: 250, description: '适合高性能需求，性价比高' },
-];
+const componentOptions = {
+  cpu: [
+    // CPU的数据（来自第一部分）
+    {
+      brand: 'Intel',
+      models: [
+        { name: 'i5-12400F', price: 150 },
+        { name: 'i7-12700K', price: 350 },
+        { name: 'i9-12900K', price: 500 }
+      ]
+    },
+    {
+      brand: 'AMD',
+      models: [
+        { name: 'Ryzen 5 5600X', price: 200 },
+        { name: 'Ryzen 7 5800X', price: 300 },
+        { name: 'Ryzen 9 5950X', price: 700 }
+      ]
+    }
+  ],
+  gpu: [
+    // GPU的数据（来自第一部分）
+    {
+      brand: 'NVIDIA',
+      models: [
+        { name: 'RTX 3060', price: 400 },
+        { name: 'RTX 3070', price: 600 },
+        { name: 'RTX 3080', price: 800 }
+      ]
+    },
+    {
+      brand: 'AMD',
+      models: [
+        { name: 'Radeon RX 6700XT', price: 450 },
+        { name: 'Radeon RX 6800XT', price: 650 },
+        { name: 'Radeon RX 6900XT', price: 900 }
+      ]
+    }
+  ],
+  ram: [
+    {
+      brand: 'Corsair',
+      models: [
+        { name: 'Vengeance LPX 16GB (2 x 8GB) DDR4-3200', price: 80 },
+        { name: 'Vengeance RGB Pro 32GB (2 x 16GB) DDR4-3600', price: 150 },
+        { name: 'Dominion Platinum 64GB (2 x 32GB) DDR4-3200', price: 300 }
+      ]
+    },
+    {
+      brand: 'G.Skill',
+      models: [
+        { name: 'Ripjaws V 16GB (2 x 8GB) DDR4-3200', price: 75 },
+        { name: 'Trident Z RGB 32GB (2 x 16GB) DDR4-4000', price: 180 },
+        { name: 'Trident Z Neo 64GB (2 x 32GB) DDR4-3600', price: 350 }
+      ]
+    },
+    {
+      brand: 'Kingston',
+      models: [
+        { name: 'HyperX Fury 16GB (2 x 8GB) DDR4-2666', price: 65 },
+        { name: 'Fury RGB 32GB (2 x 16GB) DDR4-3200', price: 140 },
+        { name: 'Fury Beast 64GB (2 x 32GB) DDR4-3600', price: 290 }
+      ]
+    }
+  ],
+  storage: [
+    {
+      brand: 'Samsung',
+      models: [
+        { name: '970 EVO Plus 500GB NVMe SSD', price: 90 },
+        { name: '970 EVO Plus 1TB NVMe SSD', price: 150 },
+        { name: '870 QVO 2TB SATA SSD', price: 180 }
+      ]
+    },
+    {
+      brand: 'Western Digital',
+      models: [
+        { name: 'Blue SN550 500GB NVMe SSD', price: 70 },
+        { name: 'Black SN750 1TB NVMe SSD', price: 140 },
+        { name: 'Blue 4TB HDD', price: 110 }
+      ]
+    },
+    {
+      brand: 'Seagate',
+      models: [
+        { name: 'Barracuda 1TB HDD', price: 50 },
+        { name: 'FireCuda 520 1TB NVMe SSD', price: 160 },
+        { name: 'IronWolf 4TB NAS HDD', price: 120 }
+      ]
+    }
+  ],
+  psu: [
+    {
+      brand: 'Corsair',
+      models: [
+        { name: 'CV550 550W 80+ Bronze', price: 60 },
+        { name: 'RM750x 750W 80+ Gold', price: 120 },
+        { name: 'HX1200 1200W 80+ Platinum', price: 250 }
+      ]
+    },
+    {
+      brand: 'EVGA',
+      models: [
+        { name: '600 W1 600W 80+ White', price: 50 },
+        { name: 'SuperNOVA 750 G5 750W 80+ Gold', price: 130 },
+        { name: 'SuperNOVA 1000 P2 1000W 80+ Platinum', price: 200 }
+      ]
+    },
+    {
+      brand: 'Cooler Master',
+      models: [
+        { name: 'MWE 500W 80+ Bronze', price: 55 },
+        { name: 'V850 850W 80+ Gold', price: 140 },
+        { name: 'MasterWatt 1200W 80+ Titanium', price: 300 }
+      ]
+    }
+  ],
+  motherboard: [
+    {
+      brand: 'ASUS',
+      models: [
+        { name: 'ASUS ROG STRIX B450-F Gaming', price: 120 },
+        { name: 'ASUS TUF Gaming X570-Plus', price: 200 },
+        { name: 'ASUS PRIME Z690-P', price: 250 }
+      ]
+    },
+    {
+      brand: 'MSI',
+      models: [
+        { name: 'MSI B450 Tomahawk Max', price: 130 },
+        { name: 'MSI MPG Z490 Gaming Edge', price: 220 },
+        { name: 'MSI MEG Z690 Unify', price: 320 }
+      ]
+    },
+    {
+      brand: 'Gigabyte',
+      models: [
+        { name: 'Gigabyte B450 Aorus Elite', price: 125 },
+        { name: 'Gigabyte Z590 Aorus Pro AX', price: 240 },
+        { name: 'Gigabyte X570 Aorus Master', price: 350 }
+      ]
+    }
+  ],
+  cooling: [
+    {
+      brand: 'Noctua',
+      models: [
+        { name: 'Noctua NH-D15', price: 90 },
+        { name: 'Noctua NH-L9i', price: 50 },
+        { name: 'Noctua NH-U12S Redux', price: 60 }
+      ]
+    },
+    {
+      brand: 'Cooler Master',
+      models: [
+        { name: 'Cooler Master Hyper 212', price: 40 },
+        { name: 'Cooler Master MasterLiquid ML240L', price: 80 },
+        { name: 'Cooler Master MasterAir MA620P', price: 70 }
+      ]
+    },
+    {
+      brand: 'Corsair',
+      models: [
+        { name: 'Corsair H100i RGB Platinum', price: 130 },
+        { name: 'Corsair H150i PRO XT', price: 170 },
+        { name: 'Corsair iCUE H60i RGB Pro XT', price: 100 }
+      ]
+    }
+  ],
+  case: [
+    {
+      brand: 'NZXT',
+      models: [
+        { name: 'NZXT H510', price: 70 },
+        { name: 'NZXT H710', price: 150 },
+        { name: 'NZXT H510 Elite', price: 120 }
+      ]
+    },
+    {
+      brand: 'Corsair',
+      models: [
+        { name: 'Corsair 275R Airflow', price: 80 },
+        { name: 'Corsair iCUE 4000X RGB', price: 110 },
+        { name: 'Corsair Crystal Series 680X', price: 200 }
+      ]
+    },
+    {
+      brand: 'Cooler Master',
+      models: [
+        { name: 'Cooler Master MasterBox TD500 Mesh', price: 90 },
+        { name: 'Cooler Master HAF 700 EVO', price: 300 },
+        { name: 'Cooler Master NR200P', price: 100 }
+      ]
+    }
+  ],
+};
 
-const gpuOptions = [
-  { name: 'NVIDIA GTX 1660', price: 300, description: '适合流行游戏和普通任务' },
-  { name: 'NVIDIA RTX 3060', price: 500, description: '适合高性能游戏和图形处理' },
-  { name: 'AMD Radeon RX 5600', price: 400, description: '性价比较高的选择' },
-];
-
-const ramOptions = [
-  { name: '16GB DDR4', price: 80, description: '适合日常办公和轻量游戏' },
-  { name: '32GB DDR4', price: 150, description: '适合多任务处理和高端游戏' },
-  { name: '64GB DDR4', price: 300, description: '适合极限性能需求' },
-];
-
-const storageOptions = [
-  { name: '1TB HDD', price: 50, description: '大容量机械硬盘，适合文件存储' },
-  { name: '500GB SSD', price: 100, description: '高速固态硬盘，适合系统和应用程序' },
-  { name: '1TB SSD', price: 180, description: '大容量固态硬盘，适合高性能需求' },
-];
-
-const psuOptions = [
-  { name: '500W Bronze', price: 60, description: '适合基础配置' },
-  { name: '650W Gold', price: 100, description: '高效电源，适合中等配置' },
-  { name: '750W Platinum', price: 150, description: '高性能电源，适合发烧友' },
-];
-
-const motherboardOptions = [
-  { name: 'ASUS B450', price: 120, description: '性价比较高，适合入门用户' },
-  { name: 'MSI Z490', price: 200, description: '适合中高端用户' },
-  { name: 'Gigabyte X570', price: 250, description: '高端用户的理想选择' },
-];
-
-const coolingOptions = [
-  { name: 'Air Cooler', price: 50, description: '基础的空气散热器' },
-  { name: 'Liquid Cooler', price: 120, description: '高效液冷系统，适合高温环境' },
-  { name: 'Noctua NH-D15', price: 90, description: '顶级空气散热器，安静且高效' },
-];
-
-const caseOptions = [
-  { name: 'Mid Tower Case', price: 70, description: '适合大多数标准配置' },
-  { name: 'Full Tower Case', price: 150, description: '适合高端配置和多GPU设置' },
-  { name: 'Mini ITX Case', price: 90, description: '适合紧凑型小型机箱配置' },
-];
 
 function CustomBuildPage() {
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
-
-  // 定义状态来跟踪用户的选择和总价
   const [selectedComponents, setSelectedComponents] = useState({
     cpu: null,
     gpu: null,
     ram: null,
     storage: null,
     psu: null,
-    motherboard: null,
-    cooling: null,
-    case: null,
+    // 其他组件...
   });
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [budget, setBudget] = useState('');
-  const [usage, setUsage] = useState('');
 
-  // 当用户选择组件时更新状态
   const handleComponentChange = (componentType, component) => {
     setSelectedComponents((prev) => ({
       ...prev,
       [componentType]: component,
     }));
 
-    // 重新计算总价
+    // 更新总价
     const newPrice = Object.values({ ...selectedComponents, [componentType]: component })
       .filter((item) => item !== null)
       .reduce((acc, curr) => acc + curr.price, 0);
     setTotalPrice(newPrice);
   };
 
-  // 根据用户的预算和需求推荐配置
-  const handleRecommend = () => {
-    let recommendedComponents = {
-      cpu: null,
-      gpu: null,
-      ram: null,
-      storage: null,
-      psu: null,
-      motherboard: null,
-      cooling: null,
-      case: null,
-    };
-
-    if (usage === 'gaming') {
-      recommendedComponents = {
-        cpu: cpuOptions[1], // Intel i7
-        gpu: gpuOptions[1], // NVIDIA RTX 3060
-        ram: ramOptions[1], // 32GB DDR4
-        storage: storageOptions[2], // 1TB SSD
-        psu: psuOptions[1], // 650W Gold
-        motherboard: motherboardOptions[1], // MSI Z490
-        cooling: coolingOptions[1], // Liquid Cooler
-        case: caseOptions[0], // Mid Tower Case
-      };
-    } else if (usage === 'design') {
-      recommendedComponents = {
-        cpu: cpuOptions[1], // Intel i7
-        gpu: gpuOptions[1], // NVIDIA RTX 3060
-        ram: ramOptions[2], // 64GB DDR4
-        storage: storageOptions[2], // 1TB SSD
-        psu: psuOptions[2], // 750W Platinum
-        motherboard: motherboardOptions[2], // Gigabyte X570
-        cooling: coolingOptions[1], // Liquid Cooler
-        case: caseOptions[1], // Full Tower Case
-      };
-    } else if (usage === 'office') {
-      recommendedComponents = {
-        cpu: cpuOptions[0], // Intel i5
-        gpu: gpuOptions[0], // NVIDIA GTX 1660
-        ram: ramOptions[0], // 16GB DDR4
-        storage: storageOptions[1], // 500GB SSD
-        psu: psuOptions[0], // 500W Bronze
-        motherboard: motherboardOptions[0], // ASUS B450
-        cooling: coolingOptions[0], // Air Cooler
-        case: caseOptions[0], // Mid Tower Case
-      };
-    }
-
-    // 根据预算调整配置
-    let currentTotal = Object.values(recommendedComponents)
-      .filter((item) => item !== null)
-      .reduce((acc, curr) => acc + curr.price, 0);
-
-    if (budget && currentTotal > budget) {
-      // 根据预算减少某些组件的配置
-      if (budget < 1000) {
-        recommendedComponents.gpu = gpuOptions[0]; // 降级 GPU
-        recommendedComponents.ram = ramOptions[0]; // 降级 RAM
-        recommendedComponents.storage = storageOptions[1]; // 降级存储
-      }
-    }
-
-    setSelectedComponents(recommendedComponents);
-    setTotalPrice(currentTotal);
-  };
-
   return (
     <div className="custom-build-page">
-      <Header />
-      <div className="recommendation-container">
-        <h2 className="section-title" data-aos="fade-right">智能推荐配置</h2>
-        <p className="recommendation-description" data-aos="fade-up">
-          根据您的预算和用途，我们将为您推荐最合适的硬件配置，确保您获得最佳的性价比。请根据以下选项填写您的预算和需求，我们将为您智能推荐最佳组合。
-        </p>
-        <div className="recommendation-inputs" data-aos="fade-up">
-          <input
-            type="number"
-            placeholder="输入您的预算 (¥)"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-            className="budget-input styled-input"
-          />
-          <select value={usage} onChange={(e) => setUsage(e.target.value)} className="usage-select styled-select">
-            <option value="">选择用途</option>
-            <option value="gaming">游戏</option>
-            <option value="design">设计</option>
-            <option value="office">办公</option>
-          </select>
-          <button onClick={handleRecommend} className="recommend-button styled-button">获取推荐配置</button>
-        </div>
-      </div>
       <div className="components-selection-container">
-        <h2 className="section-title" data-aos="fade-left">选择您的组件</h2>
-        <div className="components-selection" data-aos="fade-up">
-          <div className="component-section">
-            <FontAwesomeIcon icon={faMicrochip} className="component-icon" />
+        <h2 className="section-title">选择您的组件</h2>
+        <div className="components-selection">
+          {Object.keys(componentOptions).map((componentType, index) => (
             <ComponentSelection
-              componentType="cpu"
-              options={cpuOptions}
+              key={index}
+              componentType={componentType}
+              options={componentOptions[componentType]}
               onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.cpu}
             />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faMemory} className="component-icon" />
-            <ComponentSelection
-              componentType="gpu"
-              options={gpuOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.gpu}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faMemory} className="component-icon" />
-            <ComponentSelection
-              componentType="ram"
-              options={ramOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.ram}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faHdd} className="component-icon" />
-            <ComponentSelection
-              componentType="storage"
-              options={storageOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.storage}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faBolt} className="component-icon" />
-            <ComponentSelection
-              componentType="psu"
-              options={psuOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.psu}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faServer} className="component-icon" />
-            <ComponentSelection
-              componentType="motherboard"
-              options={motherboardOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.motherboard}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faFan} className="component-icon" />
-            <ComponentSelection
-              componentType="cooling"
-              options={coolingOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.cooling}
-            />
-          </div>
-          <div className="component-section">
-            <FontAwesomeIcon icon={faLaptopHouse} className="component-icon" />
-            <ComponentSelection
-              componentType="case"
-              options={caseOptions}
-              onComponentChange={handleComponentChange}
-              selectedComponent={selectedComponents.case}
-            />
-          </div>
+          ))}
         </div>
       </div>
       <Summary totalPrice={totalPrice} selectedComponents={selectedComponents} />

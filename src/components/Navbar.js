@@ -49,7 +49,7 @@ function renderNavLinks(onClickHandler = () => {}) {
   const links = [
     { to: "/", label: "首页" },
     { to: "/custom-build", label: "定制装机" },
-    { to: "/about", label: "关于我们" },
+    { to: "/build-showcase/office", label: "装机大厅" },
     { to: "/service-booking", label: "服务" },
     { to: "/contact-us", label: "联系我们" },
   ];

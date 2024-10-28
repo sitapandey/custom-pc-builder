@@ -6,7 +6,7 @@ function Summary({ totalPrice, selectedComponents }) {
   const navigate = useNavigate();
 
   const handleOrderSubmit = () => {
-    // Redirect to the order confirmation page
+    // 跳转到订单确认页面
     navigate('/order-confirmation');
   };
 
