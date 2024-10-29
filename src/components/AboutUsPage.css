@@ -1,0 +1,141 @@
+/* AboutUsPage.css */
+
+.about-us-page {
+  padding: 60px;
+  background-color: #f0f2f5;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+.section-title {
+  font-size: 3rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+.company-introduction, .service-advantages, .service-team, .contact-info {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.company-introduction:hover, .service-advantages:hover, .service-team:hover, .contact-info:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.sub-title {
+  font-size: 2rem;
+  color: #2980b9;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.company-image, .team-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-top: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.advantages-list {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.advantages-list li {
+  color: #34495e;
+  margin-bottom: 12px;
+}
+
+.team-image {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.contact-info {
+  padding-top: 25px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #34495e;
+}
+
+.contact-item .icon {
+  color: #2980b9;
+  margin-right: 15px;
+  font-size: 1.8rem;
+}
+
+.contact-item a {
+  color: #34495e;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-item a:hover {
+  color: #2980b9;
+}
+
+/* Animation for section cards */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.company-introduction, .service-advantages, .service-team, .contact-info {
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .about-us-page {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .sub-title {
+    font-size: 1.6rem;
+  }
+
+  .contact-item {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .sub-title {
+    font-size: 1.4rem;
+  }
+
+  .contact-item .icon {
+    font-size: 1.5rem;
+  }
+}

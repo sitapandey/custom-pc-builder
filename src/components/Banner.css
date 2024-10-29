@@ -1,0 +1,135 @@
+/* 动画 Banner 主容器 */
+.animated-banner {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif; /* 美观字体 */
+}
+
+/* 动画背景层 */
+.animation-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.layer-one {
+  background: linear-gradient(45deg, rgba(255, 0, 150, 0.5), rgba(0, 204, 255, 0.5));
+  animation: move-diagonal 8s linear infinite;
+}
+
+.layer-two {
+  background: radial-gradient(circle, rgba(255, 204, 0, 0.6), rgba(255, 0, 0, 0.3));
+  animation: scale-pulse 10s ease-in-out infinite;
+}
+
+.layer-three {
+  background: linear-gradient(135deg, rgba(0, 255, 127, 0.4), rgba(0, 0, 255, 0.3));
+  animation: rotate-layer 15s linear infinite;
+}
+
+/* 文本容器 */
+.banner-content-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* 艺术字体效果 */
+.artistic-text {
+  font-family: 'Brush Script MT', cursive; /* 使用艺术字体 */
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* 增加阴影以突出 */
+  animation: gentle-wave 4s ease-in-out infinite; /* 轻微波动动画 */
+}
+
+/* 文字轻微上升动画 */
+.fade-up {
+  animation: fadeUp 3s ease-in-out;
+}
+
+@keyframes fadeUp {
+  0% {
+      transform: translateY(20px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+/* 轻微的波动效果 */
+@keyframes gentle-wave {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px);
+  }
+}
+
+/* 按钮样式与动画 */
+.banner-button {
+  background: linear-gradient(to right, #ff6600, #ff9900);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.banner-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 10px 15px rgba(255, 153, 0, 0.4);
+}
+
+@keyframes button-pop {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05);
+  }
+}
+
+.button-animated {
+  animation: button-pop 3s ease-in-out infinite;
+}
+
+/* 背景层动画效果 */
+@keyframes move-diagonal {
+  0% {
+      transform: translateX(-50%) translateY(-50%);
+  }
+  50% {
+      transform: translateX(50%) translateY(50%);
+  }
+  100% {
+      transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+@keyframes scale-pulse {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+}
+
+@keyframes rotate-layer {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,98 @@
+.news-detail-page {
+    background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .news-detail-page:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .news-detail-page h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    transition: color 0.3s ease;
+  }
+  
+  .news-detail-page h2:hover {
+    color: #007bff;
+  }
+  
+  .news-detail-page p {
+    font-size: 1.1rem;
+    color: #888;
+  }
+  
+  .news-image-container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .news-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  
+  .news-image-container img:hover {
+    transform: scale(1.05);
+  }
+  
+  .news-content {
+    text-align: justify;
+    margin: 0 10%;
+    color: #444;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .news-actions {
+    margin-top: 2rem;
+  }
+  
+  .news-actions button {
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .share-button {
+    background-image: linear-gradient(to right, #6b73ff, #000dff);
+    color: #fff;
+    border: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .share-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+  
+  .back-button {
+    background-color: #ececec;
+    color: #555;
+    border: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+  

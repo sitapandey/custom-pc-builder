@@ -1,0 +1,122 @@
+/* CustomBuildPage.css - 更新并优化样式 */
+.custom-build-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.components-selection-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.components-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.component-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.component-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.select-brand {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .components-selection-container {
+    padding: 10px;
+  }
+
+  .section-title {
+    font-size: 1.5em;
+  }
+
+  .component-section {
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .component-section {
+    width: 100%;
+    padding: 6px;
+    margin: 0;
+  }
+
+  .components-selection {
+    gap: 12px;
+  }
+
+  .section-title {
+    font-size: 1.4em;
+  }
+
+  .component-icon {
+    font-size: 20px;
+  }
+}
+/* CustomBuildPage.css - 修复选项溢出问题 */
+
+.select-brand {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* 优化 option 元素以避免溢出 */
+.select-brand option {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 移动设备优化 */
+@media screen and (max-width: 480px) {
+  .select-brand {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+}
