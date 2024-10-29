@@ -12,6 +12,8 @@ import PromotionDetailPage from './components/PromotionDetailPage';
 import NewsDetailPage from './components/NewsDetailPage';
 import BuildShowcasePage from './components/BuildShowcasePage';
 import BuildDetailsPage from './components/BuildDetailsPage';
+import TermsOfService from './components/TermsOfServicePage';
+import PrivacyPolicyPage from './components/PrivacyPolicyPage';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './App.css';
@@ -39,6 +41,8 @@ function App() {
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/build-showcase/:id" element={<BuildShowcasePage />} />
           <Route path="/build/:id" element={<BuildDetailsPage />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
         </Routes>
         <Footer />
       </div>
